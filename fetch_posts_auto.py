@@ -5,6 +5,8 @@ import os # to check if directories exist, to create directories, and to get env
 from datetime import datetime # to get the current time, and to convert Reddit's created_utc
 import pytz # for timezones
 from dotenv import load_dotenv # to load environment variables from .env file
+import pandas as pd # for Excel operations
+
 
 load_dotenv('.env') # Load environment variables from .env file
 
@@ -42,7 +44,7 @@ for tracked_subreddit in tracked_subreddits:
 
     # headers defined for CSV
     headers = ['title', 'score', 'id', 'url', 'comms_num', 'created', #'body', 
-               'date_data_collected']
+               'date_data_collected','subreddit']
 
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -113,7 +115,8 @@ for tracked_subreddit in tracked_subreddits:
                     'comms_num': post.num_comments,
                     'created': created_local_time_str,
                     # 'body': post.selftext, # Body can cause issues. So I will handle this separately
-                    'date_data_collected': local_time_str
+                    'date_data_collected': local_time_str,
+                    'subreddit': subreddit_name
                 })
             else:
                 pass # Do nothing
@@ -136,8 +139,6 @@ print("Done!")
 
 
 # prompt for appending new posts!
-
-
 '''
 # PROMPT FOR UPDATING DATA
 update_data = input("Do you want to update the existing data? (yes/no): ")
