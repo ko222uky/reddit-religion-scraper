@@ -1,3 +1,4 @@
 .env
 popular_subreddits/
 subreddit_posts/
+env/
