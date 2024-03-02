@@ -7,8 +7,10 @@ tracked_subreddits = []
 with open('tracked_subreddits.txt', 'r') as f:
     tracked_subreddits = f.readlines()
 
-# create a master data frame
-master_df = pd.DataFrame()
+# create a master data frame with headers
+headers = ['title', 'score', 'id', 'url', 'comms_num', 'created', #'body', 
+               'date_data_collected','subreddit']  
+master_df = pd.DataFrame(columns=headers)
 # create a new file and write the headers to it
 master_df.to_excel("subreddit_posts/master_df.xlsx", index=True)
 master_df.to_csv("subreddit_posts/master_df.csv", index=False)
@@ -20,12 +22,13 @@ for tracked_subreddit in tracked_subreddits:
     directory = "subreddit_posts/" + subreddit_name + "/"
     full_path = directory + filename
     df = pd.read_csv(full_path, header=0)
+    # delete the headers from the first row
     # create Excel file
-    df.to_excel(directory + subreddit_name + ".xlsx", index=False)
+    df.to_excel(directory + subreddit_name + ".xlsx", header=False, index=False)
     print(f"Excel file created for {subreddit_name}!")
 
     # append to master_df
-    df.to_csv("subreddit_posts/master_df.csv", mode='a', index=False)
+    df.to_csv("subreddit_posts/master_df.csv", header=False, mode='a', index=False)
 
 # create master Excel from the master CSV
 df = pd.read_csv("subreddit_posts/master_df.csv")

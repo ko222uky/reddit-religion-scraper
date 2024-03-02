@@ -22,6 +22,14 @@ The environment can be created using conda and the provided environment.yml
 
 $ conda env create -f environment.yml
 
+Activate your environment (default name: reddit-religion-scraper-env):
+
+$ conda activate reddit-religion-scraper-env
+
+Run the code with the interpreter:
+
+$ python name.py
+
 ************
 Environment Variables:
 ************
