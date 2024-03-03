@@ -87,12 +87,15 @@ last_csv_file = os.path.basename(csv_files[-1])
 first_csv_file = first_csv_file.split('.')[0]
 last_csv_file = last_csv_file.split('.')[0]
 
-master_name = 'popular_subreddits/master_data/' + first_csv_file + '-to-' + last_csv_file + '.xlsx'
-
+master_name = first_csv_file + '-to-' + last_csv_file
+# create text file with the current date range. Call this info.txt
+with open('popular_subreddits/master_data/info.txt', 'w') as f:
+    f.write(f"{master_name}\n\n")
+    f.write(f"Data collected from {first_csv_file} to {last_csv_file}")
 
 
 # Writes each CSV to a separate sheet in the Excel file.
-with pd.ExcelWriter(master_name, engine='xlsxwriter') as writer:
+with pd.ExcelWriter("popular_subreddits/master_data/popular_subreddits_master_df.xlsx", engine='xlsxwriter') as writer:
     for csv_file in csv_files:
         df = pd.read_csv(csv_file)
 
